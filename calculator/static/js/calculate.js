@@ -13,30 +13,6 @@ window.addEventListener('load', function() {
         return "";
     }
 
-
-    let buttonSubtract = $('#subtract');
-    buttonSubtract.on('click', function(evt) {
-        evt.preventDefault();
-        $('#result').val('');
-        $.ajax({
-            headers: {
-                "X-CSRFToken": getCookie("csrftoken")
-            },
-            url: 'subtract/',
-            type: 'POST',
-            data: JSON.stringify({
-                'A': $('#number-a').val(),
-                'B': $('#number-b').val(),
-            }),
-        }).done(
-            function(data) {
-                $('#result').append(data['result'])
-                console.log()
-            }
-        )
-    });
-
-
     let buttonAdd = $('#calculate-add');
     buttonAdd.on('click', function(evt) {
         evt.preventDefault();
@@ -51,6 +27,35 @@ window.addEventListener('load', function() {
                 'A': $('#number-a').val(),
                 'B': $('#number-b').val(),
             }),
+            error: function(xhr, status, error) {
+              alert(error);
+            },
+        }).done(
+            function(data) {
+                    $('#result').append(data['result'])
+            },
+
+        )
+    });
+
+
+    let buttonSubtract = $('#subtract');
+    buttonSubtract.on('click', function(evt) {
+        evt.preventDefault();
+        // $('#result').val('');
+        $.ajax({
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken")
+            },
+            url: 'subtract/',
+            type: 'POST',
+            data: JSON.stringify({
+                'A': $('#number-a').val(),
+                'B': $('#number-b').val(),
+            }),
+            error: function(xhr, status, error) {
+              alert(error);
+            },
         }).done(
             function(data) {
                 $('#result').append(data['result'])
@@ -73,6 +78,9 @@ window.addEventListener('load', function() {
                 'A': $('#number-a').val(),
                 'B': $('#number-b').val(),
             }),
+            error: function(xhr, status, error) {
+              alert(error);
+            },
         }).done(
             function(data) {
                 $('#result').append(data['result'])
@@ -95,6 +103,9 @@ window.addEventListener('load', function() {
                 'A': $('#number-a').val(),
                 'B': $('#number-b').val(),
             }),
+            error: function(xhr, status, error) {
+              alert(error);
+            },
         }).done(
             function(data) {
                 $('#result').append(data['result'])

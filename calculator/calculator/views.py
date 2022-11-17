@@ -3,8 +3,6 @@ from django.http.response import JsonResponse
 
 
 def add(request, *args, **kwargs):
-    print(f'Распечатка входящего запроса! {request.body}')
-    print(request.POST)
     answer = {}
     if request.body:
         numbers = json.loads(request.body)
@@ -13,7 +11,7 @@ def add(request, *args, **kwargs):
             number_b = float(numbers['B'])
             result = number_a + number_b
             answer['result'] = result
-        except TypeError:
+        except ValueError as te:
             answer['error'] = 'There is a non-numeric value among the entered values'
             return JsonResponse(answer, status=400)
     return JsonResponse(answer)
@@ -27,7 +25,7 @@ def subtract(request, *args, **kwargs):
             number_a = float(numbers['A'])
             number_b = float(numbers['B'])
             result = number_a - number_b
-        except TypeError:
+        except ValueError as te:
             answer['error'] = 'There is a non-numeric value among the entered values'
             return JsonResponse(answer, status=400)
     answer['result'] = result
@@ -42,7 +40,7 @@ def multiply(request, *args, **kwargs):
             number_a = float(numbers['A'])
             number_b = float(numbers['B'])
             result = number_a * number_b
-        except TypeError:
+        except ValueError as te:
             answer['error'] = 'There is a non-numeric value among the entered values'
             return JsonResponse(answer, status=400)
     answer['result'] = result
@@ -54,14 +52,14 @@ def divide(request, *args, **kwargs):
     if request.body:
         numbers = json.loads(request.body)
         try:
-            number_a = numbers['A']
-            number_b = numbers['B']
-            if number_b == 0:
-                answer['error'] = "Can't divide by zero"
-                return JsonResponse(answer, status=400)
-            result = number_a / number_b
-        except TypeError:
+            number_a = float(numbers['A'])
+            number_b = float(numbers['B'])
+        except ValueError as te:
             answer['error'] = 'There is a non-numeric value among the entered values'
+        try:
+            result = number_a / number_b
+            answer['result'] = result
+            return JsonResponse(answer)
+        except ZeroDivisionError:
+            answer['error'] = "Can't divide by zero"
             return JsonResponse(answer, status=400)
-    answer['result'] = result
-    return JsonResponse(answer)
