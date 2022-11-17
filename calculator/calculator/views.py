@@ -47,3 +47,21 @@ def multiply(request, *args, **kwargs):
             return JsonResponse(answer, status=400)
     answer['result'] = result
     return JsonResponse(answer)
+
+
+def divide(request, *args, **kwargs):
+    answer = {}
+    if request.body:
+        numbers = json.loads(request.body)
+        try:
+            number_a = numbers['A']
+            number_b = numbers['B']
+            if number_b == 0:
+                answer['error'] = "Can't divide by zero"
+                return JsonResponse(answer, status=400)
+            result = number_a / number_b
+        except TypeError:
+            answer['error'] = 'There is a non-numeric value among the entered values'
+            return JsonResponse(answer, status=400)
+    answer['result'] = result
+    return JsonResponse(answer)
