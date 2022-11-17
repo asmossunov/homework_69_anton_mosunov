@@ -17,3 +17,18 @@ def add(request, *args, **kwargs):
             answer['error'] = 'There is a non-numeric value among the entered values'
             return JsonResponse(answer, status=400)
     return JsonResponse(answer)
+
+
+def subtract(request, *args, **kwargs):
+    answer = {}
+    if request.body:
+        numbers = json.loads(request.body)
+        try:
+            number_a = int(numbers['A'])
+            number_b = int(numbers['B'])
+            result = number_a - number_b
+        except TypeError:
+            answer['error'] = 'There is a non-numeric value among the entered values'
+            return JsonResponse(answer, status=400)
+    answer['result'] = result
+    return JsonResponse(answer)
