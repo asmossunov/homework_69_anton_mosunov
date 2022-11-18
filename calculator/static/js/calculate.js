@@ -13,15 +13,15 @@ window.addEventListener('load', function() {
         return "";
     }
 
-    let buttonAdd = $('#calculate-add');
-    buttonAdd.on('click', function(evt) {
+    let url = 'http://localhost:8000/';
+    $('.button').on('click', function(evt) {
         evt.preventDefault();
-        // $('#result').val('');
+        let operation = $(this).data('operation');
         $.ajax({
             headers: {
                 "X-CSRFToken": getCookie("csrftoken")
             },
-            url: 'add/',
+            url: url+operation+"/",
             type: 'POST',
             data: JSON.stringify({
                 'A': $('#number-a').val(),
@@ -42,84 +42,83 @@ window.addEventListener('load', function() {
     });
 
 
-    let buttonSubtract = $('#subtract');
-    buttonSubtract.on('click', function(evt) {
-        evt.preventDefault();
-        // $('#result').val('');
-        $.ajax({
-            headers: {
-                "X-CSRFToken": getCookie("csrftoken")
-            },
-            url: 'subtract/',
-            type: 'POST',
-            data: JSON.stringify({
-                'A': $('#number-a').val(),
-                'B': $('#number-b').val(),
-            }),
-            error: function(xhr, status, error) {
-                $('#result').css('color', 'red')
-                $('#result').html(data.responseJSON.error)
-            },
-        }).done(
-            function(data) {
-                $('#result').css('color', 'green')
-                $('#result').html(data.result)
-            }
-        )
-    });
-
-
-    let buttonMultiply = $('#multiply');
-    buttonMultiply.on('click', function(evt) {
-        evt.preventDefault();
-        $.ajax({
-            headers: {
-                "X-CSRFToken": getCookie("csrftoken")
-            },
-            url: 'multiply/',
-            type: 'POST',
-            data: JSON.stringify({
-                'A': $('#number-a').val(),
-                'B': $('#number-b').val(),
-            }),
-            error: function(xhr, status, error) {
-                $('#result').css('color', 'red')
-                $('#result').html(data.responseJSON.error)
-            },
-        }).done(
-            function(data) {
-                $('#result').css('color', 'green')
-                $('#result').html(data.result)
-
-            }
-        )
-    });
-
-
-    let buttonDivide = $('#divide');
-    buttonDivide.on('click', function(evt) {
-        evt.preventDefault();
-        $.ajax({
-            headers: {
-                "X-CSRFToken": getCookie("csrftoken")
-            },
-            url: 'divide/',
-            type: 'POST',
-            data: JSON.stringify({
-                'A': $('#number-a').val(),
-                'B': $('#number-b').val(),
-            }),
-            error: function(xhr, status, error) {
-                $('#result').css('color', 'red')
-                $('#result').html(data.responseJSON.error)
-            },
-        }).done(
-            function(data) {
-                $('#result').css('color', 'green')
-                $('#result').html(data.result)
-
-            }
-        )
-    });
+    // let buttonSubtract = $('#subtract');
+    // buttonSubtract.on('click', function(evt) {
+    //     evt.preventDefault();
+    //     $.ajax({
+    //         headers: {
+    //             "X-CSRFToken": getCookie("csrftoken")
+    //         },
+    //         url: 'subtract/',
+    //         type: 'POST',
+    //         data: JSON.stringify({
+    //             'A': $('#number-a').val(),
+    //             'B': $('#number-b').val(),
+    //         }),
+    //         error: function(xhr, status, error) {
+    //             $('#result').css('color', 'red')
+    //             $('#result').html(data.responseJSON.error)
+    //         },
+    //     }).done(
+    //         function(data) {
+    //             $('#result').css('color', 'green')
+    //             $('#result').html(data.result)
+    //         }
+    //     )
+    // });
+    //
+    //
+    // let buttonMultiply = $('#multiply');
+    // buttonMultiply.on('click', function(evt) {
+    //     evt.preventDefault();
+    //     $.ajax({
+    //         headers: {
+    //             "X-CSRFToken": getCookie("csrftoken")
+    //         },
+    //         url: 'multiply/',
+    //         type: 'POST',
+    //         data: JSON.stringify({
+    //             'A': $('#number-a').val(),
+    //             'B': $('#number-b').val(),
+    //         }),
+    //         error: function(xhr, status, error) {
+    //             $('#result').css('color', 'red')
+    //             $('#result').html(data.responseJSON.error)
+    //         },
+    //     }).done(
+    //         function(data) {
+    //             $('#result').css('color', 'green')
+    //             $('#result').html(data.result)
+    //
+    //         }
+    //     )
+    // });
+    //
+    //
+    // let buttonDivide = $('#divide');
+    // buttonDivide.on('click', function(evt) {
+    //     evt.preventDefault();
+    //     $.ajax({
+    //         headers: {
+    //             "X-CSRFToken": getCookie("csrftoken")
+    //         },
+    //         url: 'divide/',
+    //         type: 'POST',
+    //         data: JSON.stringify({
+    //             'A': $('#number-a').val(),
+    //             'B': $('#number-b').val(),
+    //         }),
+    //         error: function(xhr, status, error) {
+    //             $('#result').css('color', 'red')
+    //             $('#result').html(data.responseJSON.error)
+    //         },
+    //     }).done(
+    //         function(data) {
+    //             $('#result').css('color', 'green')
+    //             $('#result').html(data.result)
+    //
+    //         }
+    //     )
+    // });
 
 })
