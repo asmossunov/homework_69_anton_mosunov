@@ -27,12 +27,15 @@ window.addEventListener('load', function() {
                 'A': $('#number-a').val(),
                 'B': $('#number-b').val(),
             }),
-            error: function(xhr, status, error) {
-              alert(error);
+            error: function(data) {
+                $('#result').css('color', 'red')
+                $('#result').html(data.responseJSON.error)
+
             },
         }).done(
             function(data) {
-                    $('#result').append(data['result'])
+                $('#result').css('color', 'green')
+                $('#result').html(data.result)
             },
 
         )
@@ -54,12 +57,13 @@ window.addEventListener('load', function() {
                 'B': $('#number-b').val(),
             }),
             error: function(xhr, status, error) {
-              alert(error);
+                $('#result').css('color', 'red')
+                $('#result').html(data.responseJSON.error)
             },
         }).done(
             function(data) {
-                $('#result').append(data['result'])
-                console.log()
+                $('#result').css('color', 'green')
+                $('#result').html(data.result)
             }
         )
     });
@@ -79,11 +83,13 @@ window.addEventListener('load', function() {
                 'B': $('#number-b').val(),
             }),
             error: function(xhr, status, error) {
-              alert(error);
+                $('#result').css('color', 'red')
+                $('#result').html(data.responseJSON.error)
             },
         }).done(
             function(data) {
-                $('#result').append(data['result'])
+                $('#result').css('color', 'green')
+                $('#result').html(data.result)
 
             }
         )
@@ -104,11 +110,13 @@ window.addEventListener('load', function() {
                 'B': $('#number-b').val(),
             }),
             error: function(xhr, status, error) {
-              alert(error);
+                $('#result').css('color', 'red')
+                $('#result').html(data.responseJSON.error)
             },
         }).done(
             function(data) {
-                $('#result').append(data['result'])
+                $('#result').css('color', 'green')
+                $('#result').html(data.result)
 
             }
         )
